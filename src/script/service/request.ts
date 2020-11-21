@@ -28,6 +28,7 @@ export class Request {
     config: any;
 
     constructor() {
+        // axios.defaults.baseURL = "http://localhost:8001/";
 
         axios.interceptors.request.use(function (config) {
             config.url.indexOf('http') == 0 || (config.url = '/api' + config.url);
@@ -37,7 +38,7 @@ export class Request {
             return config;
         });
         axios.interceptors.response.use((response) => {
-            
+
             if (response.status < 300) {
                 if (response.config.headers['ResponseAll']) {
                     return response;

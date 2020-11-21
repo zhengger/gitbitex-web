@@ -73,7 +73,7 @@ export class WebSocketService {
 
         setInterval(() => {
             if (this.ws.readyState == 1) {
-                //this.ws.send('{"type": "ping"}')
+                this.ws.send('{"type": "ping"}')
             }
             else {
                 connect();

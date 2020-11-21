@@ -16,8 +16,9 @@ import { Service } from './service';
 
 export class ServerService extends Service {
 
-   
+
     getConfig() {
+        //TODO  configs?
         return this.request.get('/configs');
     }
 

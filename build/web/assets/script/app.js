@@ -1427,11 +1427,12 @@ var Constant = /** @class */ (function () {
     function Constant() {
     }
     Constant.CURRENCY_SYMBOL = {
-        BTC: '₿',
-        USDT: '$',
+        BTC: "₿",
+        USDT: "$",
     };
     Constant.AGGREGATION = [1, 5, 10, 50, 100, 250, 500, 1000];
-    Constant.SOCKET_SERVER = 'wss://localhost:8002/ws';
+    // static SOCKET_SERVER = 'wss://gitbitex.com:8080/ws';
+    Constant.SOCKET_SERVER = "wss://127.0.0.1:8001/ws";
     return Constant;
 }());
 exports.Constant = Constant;
@@ -13511,7 +13512,7 @@ var WebSocketService = /** @class */ (function () {
         connect();
         setInterval(function () {
             if (_this.ws.readyState == 1) {
-                //this.ws.send('{"type": "ping"}')
+                _this.ws.send('{"type": "ping"}');
             }
             else {
                 connect();
@@ -20136,6 +20137,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(40);
 var Request = /** @class */ (function () {
     function Request() {
+        // axios.defaults.baseURL = "http://localhost:8001/";
         axios_1.default.interceptors.request.use(function (config) {
             config.url.indexOf('http') == 0 || (config.url = '/api' + config.url);
             config.validateStatus = function () {
@@ -21030,6 +21032,7 @@ var ServerService = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     ServerService.prototype.getConfig = function () {
+        //TODO  configs?
         return this.request.get('/configs');
     };
     return ServerService;
@@ -22647,7 +22650,7 @@ var UDFCompatibleDatafeed = /** @class */ (function () {
             this.fireEvent('configuration_ready');
             this.logMessage("Initialized with " + JSON.stringify(configurationData));
         };
-        // 杝供一个匹酝用户杜索的商哝列表
+        // 提供一个匹配用户搜索的商品列表
         this.searchSymbolsByName = function (ticker, exchange, type, onResultReadyCallback) {
             onResultReadyCallback([]);
             return;
@@ -22721,7 +22724,7 @@ var UDFCompatibleDatafeed = /** @class */ (function () {
               });
           } */
     };
-    // 图表库调用此函数获坖坯觝K线范围的时间刻度标记。图表预期您毝个调用getTimescaleMarks会调用一次onDataCallback。
+    // 图表库调用此函数获取可见K线范围的时间刻度标记。图表预期您每个调用getTimescaleMarks会调用一次onDataCallback。
     UDFCompatibleDatafeed.prototype.getTimescaleMarks = function (symbolInfo, rangeStart, rangeEnd, onDataCallback, resolution) {
         // console.log('getTimescaleMarks rangeStart->', rangeStart);
         // console.log('getTimescaleMarks rangeEnd->', rangeEnd);
@@ -22742,7 +22745,7 @@ var UDFCompatibleDatafeed = /** @class */ (function () {
               });
           } */
     };
-    // 通过日期范围获坖历坲K线数杮。图表库希望通过onDataCallback仅一次调用，接收所有的请求历坲。而丝是被多次调用。
+    // 通过日期范围获取历史K线数据。图表库希望通过onDataCallback仅一次调用，接收所有的请求历史。而不是被多次调用。
     UDFCompatibleDatafeed.prototype.getBars = function (symbolInfo, resolution, rangeStartDate, rangeEndDate, onDataCallback, onErrorCallback) {
         var _this = this;
         var meta = { version: 1.0, noData: false };
@@ -22776,20 +22779,20 @@ var UDFCompatibleDatafeed = /** @class */ (function () {
             onDataCallback(returnBars(), meta);
         });
     };
-    // 订阅K线数杮。图表库将调用onRealtimeCallback方法以更新实时数杮。
+    // 订阅K线数据。图表库将调用onRealtimeCallback方法以更新实时数据。
     UDFCompatibleDatafeed.prototype.subscribeBars = function (symbolInfo, resolution, onRealtimeCallback, listenerGUID, onResetCacheNeededCallback) {
         window.hasWsMessage = '';
         this.barsPulseUpdater.subscribeDataListener(symbolInfo, resolution, onRealtimeCallback, listenerGUID);
     };
-    // 坖消订阅K线数杮。在调用subscribeBars方法时,图表库将跳过与subscriberUID相坌的对象。
+    // 取消订阅K线数据。在调用subscribeBars方法时,图表库将跳过与subscriberUID相同的对象。
     UDFCompatibleDatafeed.prototype.unsubscribeBars = function (listenerGUID) {
         this.barsPulseUpdater.unsubscribeDataListener(listenerGUID);
     };
-    // 图表库在它覝请求一些历坲数杮的时候会调用这个函数，让你能够覆盖所需的历坲深度。
+    // 图表库在它要请求一些历史数据的时候会调用这个函数，让你能够覆盖所需的历史深度。
     UDFCompatibleDatafeed.prototype.calculateHistoryDepth = function (period, resolutionBack, intervalBack) {
     };
     // -------------------- 交易终端专属-----------------------------
-    // 当图表需覝报价数杮时，将调用此函数。图表库预期在收到所有请求数杮时调用onDataCallback。
+    // 当图表需要报价数据时，将调用此函数。图表库预期在收到所有请求数据时调用onDataCallback。
     UDFCompatibleDatafeed.prototype.getQuotes = function (symbols, onDataCallback, onErrorCallback) {
         // this._send(`${this._datafeedURL}/quotes`, { symbols })
         // .done((response) => {
@@ -22809,15 +22812,15 @@ var UDFCompatibleDatafeed = /** @class */ (function () {
         //     }
         // });
     };
-    // 交易终端当需覝接收商哝的实时报价时调用此功能。图表预期您毝次覝更新报价时都会调用onRealtimeCallback。
+    // 交易终端当需要接收商品的实时报价时调用此功能。图表预期您每次要更新报价时都会调用onRealtimeCallback。
     UDFCompatibleDatafeed.prototype.subscribeQuotes = function (symbols, fastSymbols, onRealtimeCallback, listenerGUID) {
         this.quotesPulseUpdater.subscribeDataListener(symbols, fastSymbols, onRealtimeCallback, listenerGUID);
     };
-    // 交易终端当丝需覝冝接收商哝的实时报价时调用此函数。当图表库靇到listenerGUID相坌的对象会跳过subscribeQuotes方法。
+    // 交易终端当不需要再接收商品的实时报价时调用此函数。当图表库遇到listenerGUID相同的对象会跳过subscribeQuotes方法。
     UDFCompatibleDatafeed.prototype.unsubscribeQuotes = function (listenerGUID) {
         this.quotesPulseUpdater.unsubscribeDataListener(listenerGUID);
     };
-    // 通过商哝坝称解枝商哝信杯
+    // 通过商品名称解析商品信息
     UDFCompatibleDatafeed.prototype.resolveSymbol = function (symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
         var _this = this;
         setTimeout(function () {
@@ -22860,7 +22863,7 @@ var SymbolsStorage = /** @class */ (function () {
         this.exchangesDataCache = {};
         this.symbolsInfo = {};
         this.symbolsList = [];
-        // 设置商哝集坈信杯
+        // 设置商品集合信息
         this.requestFullSymbolsList = function () {
             var that = this;
             var datafeed = this._datafeed;
@@ -22894,7 +22897,7 @@ var SymbolsStorage = /** @class */ (function () {
                         group: exchange
                     })
                         .done(function (exchange) {
-
+            
                         return function (response) {
                             that._onExchangeDataReceived(exchange, JSON.parse(response));
                             that._onAnyExchangeResponseReceived(exchange);
@@ -23132,7 +23135,7 @@ var QuotesPulseUpdater = /** @class */ (function () {
         for (var listenerGUID in this.subscribers) {
             this.requestsPending++;
             var subscriptionRecord = this.subscribers[listenerGUID];
-            this.datafeed.getQuotes(symbolsGetter(subscriptionRecord),
+            this.datafeed.getQuotes(symbolsGetter(subscriptionRecord), 
             // onDataCallback
             (function (subscribers, guid) {
                 return function (data) {
@@ -23491,7 +23494,7 @@ var CandleChartComponent = /** @class */ (function (_super) {
         this.history = [];
         service_1.StoreService.Trade.getObject(this.productId).history.forEach(function (item, index) {
             var last_record = _this.history[_this.history.length - 1];
-            // 自动补齝
+            // 自动补齐
             while (last_record && last_record[0] / 1000 - item[0] > _this.range.granularity) {
                 var speed = _this.range.granularity * 1000, point = [last_record[0] - speed, last_record[4], last_record[4], last_record[4], last_record[4], 0];
                 _this.history.push(point);
