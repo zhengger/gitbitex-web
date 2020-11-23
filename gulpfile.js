@@ -26,7 +26,8 @@ options = minimist(process.argv.slice(2));
 isProduction = options.env == "prod";
 buildPath = "./build/web";
 routeBase = "/";
-apiProxy = "http://localhost:8001";
+//! change apiProxy from "localhost:8001" to "http://localhost:8001"
+apiProxy = "http://localhost:8003";
 
 function createTask(task, taskName) {
   if (task.type == "concat") {

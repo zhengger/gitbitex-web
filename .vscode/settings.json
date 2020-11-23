@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "**/.git": false,
+        "**/.git": true,
         "**/.svn": false,
         "**/.hg": true,
         "**/CVS": true,
@@ -11,7 +11,8 @@
         "**/.factorypath": false,
         "**/.mypy_cache": true,
         "**/build": true,
-        "build": true
+        "build": true,
+        ".git": true
     },
     "explorerExclude.backup": null
 }

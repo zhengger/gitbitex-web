@@ -1432,7 +1432,7 @@ var Constant = /** @class */ (function () {
     };
     Constant.AGGREGATION = [1, 5, 10, 50, 100, 250, 500, 1000];
     // static SOCKET_SERVER = 'wss://gitbitex.com:8080/ws';
-    Constant.SOCKET_SERVER = "wss://127.0.0.1:8001/ws";
+    Constant.SOCKET_SERVER = "ws://localhost:8002/ws";
     return Constant;
 }());
 exports.Constant = Constant;
