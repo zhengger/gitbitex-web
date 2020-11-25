@@ -21214,7 +21214,7 @@ var AccountService = /** @class */ (function (_super) {
         return this.request.delete('/users/accessToken');
     };
     AccountService.prototype.current = function () {
-        return this.request.get('/users/self', { headers: { 'HideAuthError': true } });
+        return this.request.get('/users/self', { headers: { 'HideAuthError': false } });
     };
     AccountService.prototype.saveToken = function (token) {
         window.localStorage.setItem('access-token', token);
@@ -26803,12 +26803,13 @@ var AccountSigninPage = /** @class */ (function (_super) {
         http_1.HttpService.Account.signin(this.account.email, this.account.password).then(function (response) {
             http_1.HttpService.Account.saveToken(response);
             service_1.StoreService.Account.current(function () {
-                if (_this.$route.query.ref) {
-                    _this.$router.push(_this.$route.query.ref);
-                }
-                else {
-                    _this.$router.push("/account/profile");
-                }
+                _this.$router.push("/account/profile");
+                // if (this.$route.query.ref) {
+                //     this.$router.push(this.$route.query.ref);
+                // }
+                // else {
+                //     this.$router.push(`/account/profile`);
+                // }
             });
         }).catch(function (res) {
             _this.error = res.message;

@@ -32,7 +32,7 @@ export class AccountService extends Service {
     }
 
     current() {
-        return this.request.get('/users/self', { headers : {'HideAuthError': true} });
+        return this.request.get('/users/self', { headers : {'HideAuthError': false} });
     }
 
     saveToken(token: string) {
@@ -88,7 +88,7 @@ export class AccountService extends Service {
 
     getFileUrl() {
         return this.request.get(`/files/url`);
-    
+
     }
 
     saveNickname(nickname: string) {

@@ -10,8 +10,8 @@
         "**/.settings": false,
         "**/.factorypath": false,
         "**/.mypy_cache": true,
-        "**/build": true,
-        "build": true,
+        "**/build": false,
+        "build": false,
         ".git": true
     },
     "explorerExclude.backup": null
