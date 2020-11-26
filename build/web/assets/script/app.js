@@ -1432,7 +1432,8 @@ var Constant = /** @class */ (function () {
     };
     Constant.AGGREGATION = [1, 5, 10, 50, 100, 250, 500, 1000];
     // static SOCKET_SERVER = 'wss://gitbitex.com:8080/ws';
-    Constant.SOCKET_SERVER = "ws://localhost:8002/ws";
+    // static SOCKET_SERVER = "ws://localhost:8002/ws";
+    Constant.SOCKET_SERVER = "ws://192.168.0.108:8002/ws";
     return Constant;
 }());
 exports.Constant = Constant;
@@ -13493,11 +13494,11 @@ var WebSocketService = /** @class */ (function () {
             _this.ws.onmessage = function (msg) {
                 msg = JSON.parse(msg.data);
                 _this.onMessage && _this.onMessage(msg);
-                if (msg.type == 'subscriptions') {
+                if (msg.type == "subscriptions") {
                     _this.subscribes = [];
                     msg.channels.forEach(function (channel) {
                         channel.channels = [channel.name];
-                        channel.type = 'subscribe';
+                        channel.type = "subscribe";
                         _this.subscribes.push(channel);
                     });
                 }
@@ -13521,7 +13522,7 @@ var WebSocketService = /** @class */ (function () {
     };
     WebSocketService.prototype.subscribe = function (data) {
         this.ws.send(JSON.stringify(Object.assign(data, {
-            token: this.token || ''
+            token: this.token || "",
         })));
     };
     return WebSocketService;
@@ -26448,7 +26449,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 
-buf.push("<div class=\"modal-withdrawal\"><div class=\"modal-header\"><h2>WITHDRAWAL FUNDS</h2><span @click=\"close\" class=\"close\">✕</span></div><div class=\"tabbar\"><span v-for=\"(item, index) in tabbarItems\" @click=\"tabbarChange(index)\" :class=\"{active: item.active}\"> \n{{item.currency}} Address</span></div><div v-if=\"!withdrawaled\" class=\"modal-body\"><form-withdrawal :currency=\"currency\" @success=\"withdrawalSuccess\"></form-withdrawal><div class=\"clear-fixed\"></div></div><div v-if=\"withdrawaled\" class=\"success-panel\"><icon-success></icon-success></div></div>");;return buf.join("");
+buf.push("<div class=\"modal-withdrawal\"><div class=\"modal-header\"><h2>WITHDRAWAL FUNDS</h2><span @click=\"close\" class=\"close\">✕</span></div><div class=\"tabbar\"><span v-for=\"(item, index) in tabbarItems\" @click=\"tabbarChange(index)\" :class=\"{active: item.active}\">{{item.currency}} Address</span></div><div v-if=\"!withdrawaled\" class=\"modal-body\"><form-withdrawal :currency=\"currency\" @success=\"withdrawalSuccess\"></form-withdrawal><div class=\"clear-fixed\"></div></div><div v-if=\"withdrawaled\" class=\"success-panel\"><icon-success></icon-success></div></div>");;return buf.join("");
 }
 
 /***/ }),

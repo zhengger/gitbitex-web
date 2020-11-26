@@ -27,7 +27,8 @@ isProduction = options.env == "prod";
 buildPath = "./build/web";
 routeBase = "/";
 //! change apiProxy from "localhost:8001" to "http://localhost:8001"
-apiProxy = "http://localhost:8003";
+// apiProxy = "http://localhost:8003";
+apiProxy = "http://192.168.0.108:8003";
 
 function createTask(task, taskName) {
   if (task.type == "concat") {
