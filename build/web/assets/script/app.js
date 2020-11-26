@@ -26803,13 +26803,14 @@ var AccountSigninPage = /** @class */ (function (_super) {
         http_1.HttpService.Account.signin(this.account.email, this.account.password).then(function (response) {
             http_1.HttpService.Account.saveToken(response);
             service_1.StoreService.Account.current(function () {
-                _this.$router.push("/account/profile");
-                // if (this.$route.query.ref) {
-                //     this.$router.push(this.$route.query.ref);
-                // }
-                // else {
-                //     this.$router.push(`/account/profile`);
-                // }
+                //! For debug only
+                // this.$router.push(`/account/profile`);
+                if (_this.$route.query.ref) {
+                    _this.$router.push(_this.$route.query.ref);
+                }
+                else {
+                    _this.$router.push("/account/profile");
+                }
             });
         }).catch(function (res) {
             _this.error = res.message;

@@ -54,14 +54,15 @@ export class AccountSigninPage extends Page {
         HttpService.Account.signin(this.account.email, this.account.password).then((response: any) => {
             HttpService.Account.saveToken(response);
             StoreService.Account.current(() => {
-                this.$router.push(`/account/profile`);
+                //! For debug only
+                // this.$router.push(`/account/profile`);
 
-                // if (this.$route.query.ref) {
-                //     this.$router.push(this.$route.query.ref);
-                // }
-                // else {
-                //     this.$router.push(`/account/profile`);
-                // }
+                if (this.$route.query.ref) {
+                    this.$router.push(this.$route.query.ref);
+                }
+                else {
+                    this.$router.push(`/account/profile`);
+                }
             })
         }).catch((res: any) => {
             this.error = res.message;

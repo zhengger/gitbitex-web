@@ -12,7 +12,11 @@
         "**/.mypy_cache": true,
         "**/build": false,
         "build": false,
-        ".git": true
+        ".git": true,
+        "build/web": true,
+        "**/web": true,
+        "build/*.*": true,
+        "web": true
     },
     "explorerExclude.backup": null
 }
