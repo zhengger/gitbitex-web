@@ -20,5 +20,5 @@ export class Constant {
   static AGGREGATION = [1, 5, 10, 50, 100, 250, 500, 1000];
   // static SOCKET_SERVER = 'wss://gitbitex.com:8080/ws';
   // static SOCKET_SERVER = "ws://localhost:8002/ws";
-  static SOCKET_SERVER = "ws://192.168.0.108:8002/ws";
+  static SOCKET_SERVER = "ws://192.168.0.39:8002/ws";
 }
